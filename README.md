@@ -6,3 +6,4 @@ Repository for data analysis, scripts, and figures for workshop.
 
 - Learn how to do basic things in Git that I can reproduce myself 
 - Become more comfortable with using the tidyverse 
+- Figure out naming issues 
