@@ -40,14 +40,14 @@ library(purrr)
 
 bd4 <-bd3 %>%
   tidyr::nest(data = -temp_bin) %>%
-  dplyr::mutate(model = purrr::map(data, lm(cnt ~ temp, .x))) %>%
+  dplyr::mutate(model = purrr::map(data, ~ lm(cnt ~ temp, .x))) %>%
   dplyr::mutate(tidy_model = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(tidy_model) %>%
   dplyr::arrange(temp_bin)
 
 # Error, isn't recognizing what .x is
 
-ggplot(bd4 %>% filter(term = "temp")) +
+ggplot(bd4 %>% filter(term == "temp")) +
   geom_hline(aes(yintercept = 0), color = "gray50") +
   geom_point(aes(x = term, y = estimate)) +
   geom_errorbar(aes(x = temp_bin, ymin = estimate - std.error, ymax = estimate + std.error))
